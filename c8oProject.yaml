@@ -6,7 +6,7 @@
   ↓Project_reference1 [references.ProjectSchemaReference]: 
     projectName: mobilebuilder_tpl_7_9_0=https://github.com/convertigo/c8oprj-mobilebuilder-tpl/archive/mobilebuilder_tpl_7_9_0.zip
   ↓Project_reference3 [references.ProjectSchemaReference]: 
-    projectName: lib_Vonage=https://github.com/convertigo/c8oprj-lib-vonage.git:branch=master
+    projectName: lib_Vonage=https://github.com/convertigo/c8oprj-lib-vonage.git:branch=7.9.0
   ↓Mobile_application [core.MobileApplication]: 
     endpoint: https://pedro.convertigo.net
     ↓Android [mobileplatforms.Android]: 
