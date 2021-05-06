@@ -1,0 +1,189 @@
+isEnabled: false
+↓CallSequence [mobile.components.UIDynamicAction-1620306210553]: 
+  beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_Vonage.GetVideoApiKey"}'
+  ↓CallSequence [mobile.components.UIDynamicAction-1620306210556]: 
+    beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_Vonage.AppCreateVideoSession"}'
+    ↓name [mobile.components.UIControlVariable-1620306210559]: 
+      comment: new variable
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:params.name
+    ↓CallSequence [mobile.components.UIDynamicAction-1620306210562]: 
+      beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_Vonage.GetSessionById"}'
+      ↓docid [mobile.components.UIControlVariable-1620306210565]: 
+        comment: new variable
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: source:{"filter":"Action","project":"vonage_forms","input":"","model":{"data":[{"priority":1620306210556},{"priority":1620306210553}],"path":"?.in?.vars?.name","prefix":"","suffix":"","custom":"","useCustom":false}}
+      ↓CallSequence [mobile.components.UIDynamicAction-1620306210568]: 
+        beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_Vonage.ApiGetVideoToken"}'
+        ↓role [mobile.components.UIControlVariable-1620306210571]: 
+          comment: new variable
+          varValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:PUBLISHER
+        ↓data [mobile.components.UIControlVariable-1620306210574]: 
+          comment: new variable
+          varValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:name=Franck
+        ↓expire [mobile.components.UIControlVariable-1620306210577]: 
+          comment: new variable
+          varValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:604800
+        ↓sessionID [mobile.components.UIControlVariable-1620306210580]: 
+          comment: new variable
+          varValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+              - MobileSmartSourceType: source:{"filter":"Action","project":"vonage_forms","input":"","model":{"data":[{"priority":1620306210562},{"priority":1620306210553},{"priority":1620306210556}],"path":"?.out?.data","prefix":"","suffix":"","custom":"","useCustom":false}}
+        ↓apiKey [mobile.components.UIControlVariable-1620306210583]: 
+          comment: new variable
+          varValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+              - MobileSmartSourceType: source:{"filter":"Action","project":"vonage_forms","input":"","model":{"data":[{"priority":1620306210553}],"path":"?.out?.videoApiKey","prefix":"","suffix":"","custom":"","useCustom":false}}
+        ↓apiSecret [mobile.components.UIControlVariable-1620306210586]: 
+          comment: new variable
+          varValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+              - MobileSmartSourceType: source:{"filter":"Sequence","project":"vonage_forms","input":"","model":{"data":[{"sequence":"lib_Vonage.GetVideoApiKeySecret","marker":""}],"path":"?.videoApiKeySecret","prefix":"","suffix":"","custom":"","useCustom":false}}
+        ↓useOpenTok [mobile.components.UICustomAction-1620306210589]: 
+          actionValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+              - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                →: |
+                  '			page.c8o.log.debug(''[OpenTok] token     : '' + vars.token);
+                              page.c8o.log.debug(''[OpenTok] apiKey    : '' + vars.apiKey);
+                              page.c8o.log.debug(''[OpenTok] sessionId : '' + vars.sessionId);
+                              page.c8o.log.debug(''[OpenTok] mode      : '' + vars.mode);
+                  
+                  		    
+                      		function handleError(error) {
+                      		    if (error) {
+                                      page.c8o.log.error(''[OpenTok] error : '' + error.message);
+                      		    }
+                      		}
+                      		
+                      		var session = OT.initSession(vars.apiKey, vars.sessionId);
+                      		
+                      		if (vars.mode == "subscriber") {
+                          		session.on(''streamCreated'', function(event) {
+                          		     session.subscribe(event.stream, ''subscriber'', {
+                          		       insertMode: ''append'',
+                          		       width: vars.width,
+                          		       height: vars.height
+                          		     }, handleError);
+                                       resolve();
+                          		});
+                          		
+                                  session.connect(vars.token, function(error) {
+                                      if (error) {
+                                          handleError(error);
+                                      }
+                                      resolve();
+                                  });
+                      		}
+                      		
+                              if (vars.mode == "publisher") {
+                          		const publisher = OT.initPublisher(''publisher'', {
+                          		        insertMode: ''append'',
+                          		        width: vars.width,
+                          		        height: vars.height
+                          		}, handleError)
+                          		
+                                  // Connect to the session
+                                  session.connect(vars.token, function(error) {
+                                      // If the connection is successful, initialize a publisher and publish to the session
+                                      if (error) {
+                                          handleError(error);
+                                      } else {
+                                          session.publish(publisher, handleError);
+                  						var videoElement = page["publisher"].nativeElement;
+                  						console.log(videoElement);
+                  						videoElement.requestPictureInPicture().then(
+                  							pictureInPictureWindow => {
+                  								
+                  							})
+                                      }
+                                      resolve();
+                                  });
+                              }
+                  
+                              if (vars.mode == "moderator") {
+                                  resolve();
+                              }
+                  '
+          module_ts_imports: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: '* as OT'
+                    - java.lang.String: 
+                      - ↑value: '@opentok/client'
+          package_dependencies: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: '@opentok/client'
+                    - java.lang.String: 
+                      - ↑value: 2.18.1
+          page_ts_imports: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: '* as OT'
+                    - java.lang.String: 
+                      - ↑value: '@opentok/client'
+          ↓apiKey [mobile.components.UIControlVariable-1620306210592]: 
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+                - MobileSmartSourceType: source:{"filter":"Sequence","project":"vonage_forms","input":"","model":{"data":[{"sequence":"lib_Vonage.GetVideoApiKey","marker":""}],"path":"?.videoApiKey","prefix":"","suffix":"","custom":"","useCustom":false}}
+          ↓sessionId [mobile.components.UIControlVariable-1620306210595]: 
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+                - MobileSmartSourceType: source:{"filter":"Action","project":"vonage_forms","input":"","model":{"data":[{"priority":1620306210562},{"priority":1620306210553},{"priority":1620306210556}],"path":"?.out?.data","prefix":"","suffix":"","custom":"","useCustom":false}}
+          ↓token [mobile.components.UIControlVariable-1620306210598]: 
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+                - MobileSmartSourceType: source:{"filter":"Action","project":"vonage_forms","input":"","model":{"data":[{"priority":1620306210568},{"priority":1620306210553},{"priority":1620306210556},{"priority":1620306210562},{"priority":1620228010782}],"path":"?.out?.token","prefix":"","suffix":"","custom":"","useCustom":false}}
+          ↓mode [mobile.components.UIControlVariable-1620306210601]: 
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+                - MobileSmartSourceType: script:params.mode
+          ↓width [mobile.components.UIControlVariable-1620306210604]: 
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:150
+          ↓height [mobile.components.UIControlVariable-1620306210607]: 
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:150
+↓name [mobile.components.UIStackVariable-1620306267518]: 
+↓mode [mobile.components.UIStackVariable-1620306344907]: 

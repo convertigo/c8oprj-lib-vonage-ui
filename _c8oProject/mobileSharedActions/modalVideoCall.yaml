@@ -1,0 +1,146 @@
+↓InvokeSharedAction [mobile.components.UIDynamicInvoke-1620307381255]: 
+  beanData: '{"ionBean":"InvokeAction"}'
+  stack: lib_Vonage_ui.Mobile_application.Application.initAndCreate
+  ↓name [mobile.components.UIControlVariable-1620307416317]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:'name=Franck'
+  ↓role [mobile.components.UIControlVariable-1620307416319]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:'PUBLISHER'
+  ↓createTargetElement [mobile.components.UICustomAction-1620307447978]: 
+    actionValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+        - com.twinsoft.convertigo.beans.common.FormatedContent: 
+          →: |
+            '		page.c8o.log.debug(''[MB] ''+ props.actionFunction +'': ''+ props.actionName);
+            		
+            		var div = document.createElement("div");
+            		var body = document.getElementsByTagName("body")[0]
+            		
+            		div.style.zIndex = "10000000000";
+            		div.style.position = "absolute";
+            		div.style.minWidth = "500px";
+            		div.style.minHeight = "500px";
+            		let id = new Date().getTime() + "";
+            		div.id = "Layout"+id;
+            		
+            		body.appendChild(div)
+            		
+            		dragElement(div);
+            		
+            		function dragElement(elmnt) {
+                     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                     if (document.getElementById(elmnt.id)) {
+                       // if present, the header is where you move the DIV from:
+                       document.getElementById(elmnt.id).onmousedown = dragMouseDown;
+                     } else {
+                       // otherwise, move the DIV from anywhere inside the DIV:
+                       elmnt.onmousedown = dragMouseDown;
+                     }
+                   
+                     function dragMouseDown(e) {
+                       e = e || window.event;
+                       e.preventDefault();
+                       // get the mouse cursor position at startup:
+                       pos3 = e.clientX;
+                       pos4 = e.clientY;
+                       document.onmouseup = closeDragElement;
+                       // call a function whenever the cursor moves:
+                       document.onmousemove = elementDrag;
+                     }
+                   
+                     function elementDrag(e) {
+                       e = e || window.event;
+                       e.preventDefault();
+                       // calculate the new cursor position:
+                       pos1 = pos3 - e.clientX;
+                       pos2 = pos4 - e.clientY;
+                       pos3 = e.clientX;
+                       pos4 = e.clientY;
+                       // set the element''s new position:
+                       elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                       elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+                     }
+                   
+                     function closeDragElement() {
+                       // stop moving when mouse button is released:
+                       document.onmouseup = null;
+                       document.onmousemove = null;
+                     }
+                   }
+            		
+            		resolve(id);
+            '
+    ↓invokePublisher [mobile.components.UIDynamicInvoke-1620307388635]: 
+      beanData: '{"ionBean":"InvokeAction"}'
+      stack: lib_Vonage_ui.Mobile_application.Application.initOpenTok
+      ↓role [mobile.components.UIControlVariable-1620307414439]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: script:'publisher'
+      ↓targetElement [mobile.components.UIControlVariable-1620307414441]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: script:parent.out
+      ↓sessionId [mobile.components.UIControlVariable-1620309459172]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: source:{"filter":"Action","project":"lib_Vonage_ui","input":"","model":{"data":[{"priority":1620307381255},{"priority":1620307352727}],"path":"?.out","prefix":"","suffix":"","custom":"stack['1620307381255']?.out.sessionId","useCustom":true}}
+      ↓apiKey [mobile.components.UIControlVariable-1620309459174]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: source:{"filter":"Action","project":"lib_Vonage_ui","input":"","model":{"data":[{"priority":1620307381255},{"priority":1620307352727}],"path":"?.out","prefix":"","suffix":"","custom":"stack['1620307381255']?.out.apiKey","useCustom":true}}
+      ↓token [mobile.components.UIControlVariable-1620309478093]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: source:{"filter":"Action","project":"lib_Vonage_ui","input":"","model":{"data":[{"priority":1620307388635},{"priority":1620307352727},{"priority":1620307381255},{"priority":1620307447978}],"path":"","prefix":"","suffix":"","custom":"stack['1620307381255']?.out.token","useCustom":true}}
+      ↓width [mobile.components.UIControlVariable-1620311443641]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: script:params.width
+      ↓height [mobile.components.UIControlVariable-1620311443643]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: script:params.height
+    ↓invokeSubscriber [mobile.components.UIDynamicInvoke-1620310846718]: 
+      beanData: '{"ionBean":"InvokeAction"}'
+      stack: lib_Vonage_ui.Mobile_application.Application.initOpenTok
+      ↓role [mobile.components.UIControlVariable-1620310846721]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: script:'subscriber'
+      ↓targetElement [mobile.components.UIControlVariable-1620310846724]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: script:parent.out
+      ↓sessionId [mobile.components.UIControlVariable-1620310846727]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: source:{"filter":"Action","project":"lib_Vonage_ui","input":"","model":{"data":[{"priority":1620307381255},{"priority":1620307352727}],"path":"?.out","prefix":"","suffix":"","custom":"stack['1620307381255']?.out.sessionId","useCustom":true}}
+      ↓apiKey [mobile.components.UIControlVariable-1620310846730]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: source:{"filter":"Action","project":"lib_Vonage_ui","input":"","model":{"data":[{"priority":1620307381255},{"priority":1620307352727}],"path":"?.out","prefix":"","suffix":"","custom":"stack['1620307381255']?.out.apiKey","useCustom":true}}
+      ↓token [mobile.components.UIControlVariable-1620310846733]: 
+        varValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+            - MobileSmartSourceType: source:{"filter":"Action","project":"lib_Vonage_ui","input":"","model":{"data":[{"priority":1620310846718},{"priority":1620307352727},{"priority":1620307381255},{"priority":1620307447978}],"path":"","prefix":"","suffix":"","custom":"stack['1620307381255']?.out.token","useCustom":true}}
+↓width [mobile.components.UIStackVariable-1620311488779]: 
+↓height [mobile.components.UIStackVariable-1620311511238]: 

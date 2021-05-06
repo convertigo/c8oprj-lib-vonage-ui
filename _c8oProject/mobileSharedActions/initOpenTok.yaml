@@ -1,0 +1,201 @@
+↓useOpenTok [mobile.components.UICustomAction-1620306742991]: 
+  actionValue: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          '			page.c8o.log.debug(''[OpenTok] token     : '' + vars.token);
+                      page.c8o.log.debug(''[OpenTok] apiKey    : '' + vars.apiKey);
+                      page.c8o.log.debug(''[OpenTok] sessionId : '' + vars.sessionId);
+                      page.c8o.log.debug(''[OpenTok] role   : '' + vars.role);
+          
+          			const optionsLayoutManager = {
+          			    maxRatio: 3/2,             // The narrowest ratio that will be used (default 2x3)
+          			    minRatio: 9/16,            // The widest ratio that will be used (default 16x9)
+          			    fixedRatio: false,         // If this is true then the aspect ratio of the video is maintained and minRatio and maxRatio are ignored (default false)
+          			    alignItems: ''center'',      // Can be ''start'', ''center'' or ''end''. Determines where to place items when on a row or column that is not full
+          			    bigClass: "OT_big",        // The class to add to elements that should be sized bigger
+          			    bigPercentage: 0.8,        // The maximum percentage of space the big ones should take up
+          			    bigFixedRatio: false,      // fixedRatio for the big ones
+          			    bigAlignItems: ''center'',   // How to align the big items
+          			    smallAlignItems: ''center'', // How to align the small row or column of items if there is a big one
+          			    maxWidth: Infinity,        // The maximum width of the elements
+          			    maxHeight: Infinity,       // The maximum height of the elements
+          			    smallMaxWidth: Infinity,   // The maximum width of the small elements
+          			    smallMaxHeight: Infinity,  // The maximum height of the small elements
+          			    bigMaxWidth: Infinity,     // The maximum width of the big elements
+          			    bigMaxHeight: Infinity,    // The maximum height of the big elements
+          			    bigMaxRatio: 3/2,          // The narrowest ratio to use for the big elements (default 2x3)
+          			    bigMinRatio: 9/16,         // The widest ratio to use for the big elements (default 16x9)
+          			    bigFirst: true,            // Whether to place the big one in the top left (true) or bottom right (false).
+          			                               // You can also pass ''column'' or ''row'' to change whether big is first when you are in a row (bottom) or a column (right) layout
+          			    animate: true,             // Whether you want to animate the transitions using jQuery (not recommended, use CSS transitions instead)
+          			    window: window,            // Lets you pass in your own window object which should be the same window that the element is in
+          			    ignoreClass: ''OT_ignore'',  // Elements with this class will be ignored and not positioned. This lets you do things like picture-in-picture
+          			};
+          			
+          			const layoutEl = document.getElementById("Layout"+vars.targetElement);
+          			const layout = OTLayoutManager(layoutEl, optionsLayoutManager);
+          			layout.layout();
+          			var el = document.createElement("div");
+          			     el.addEventListener(''dblclick'', function () {
+          	            if (el.classList.contains(''OT_big'')) {
+          	              el.classList.remove(''OT_big'');
+          	            } else {
+          	              el.classList.add(''OT_big'');
+          	            }
+          	            layout.layout();
+          	          });
+              		function handleError(error) {
+              		    if (error) {
+                              page.c8o.log.error(''[OpenTok] error : '' + error.message);
+              		    }
+              		}
+              		
+              		var session = OT.initSession(vars.apiKey, vars.sessionId);
+              		
+              		if (vars.role == "subscriber") {
+                  		session.on(''streamCreated'', function(event) {
+                  		     session.subscribe(event.stream, el, {
+                  		       insertMode: ''append'',
+                  		       width: vars.width,
+                  		       height: vars.height
+                  		     }, handleError);
+          					layoutEl.appendChild(el);
+          					layout.layout();
+                               resolve();
+                  		});
+                  		
+                          session.connect(vars.token, function(error) {
+                              if (error) {
+                                  handleError(error);
+                              }
+          					else{
+          						layout.layout();
+          					}
+                              resolve();
+                          });
+              		}
+              		
+                      if (vars.role == "publisher") {
+                  		const publisher = OT.initPublisher(el, {
+                  		        insertMode: ''append'',
+                  		        width: vars.width,
+                  		        height: vars.height,
+          						resolution: "1280x720"
+                  		}, handleError)
+                  		
+                          // Connect to the session
+                          session.connect(vars.token, function(error) {
+                              // If the connection is successful, initialize a publisher and publish to the session
+                              if (error) {
+                                  handleError(error);
+                              } else {
+                                  session.publish(publisher, handleError);
+          						layoutEl.appendChild(el);
+          						layout.layout();
+                              }
+                              resolve();
+                          });
+                      }
+          
+                      if (vars.role == "moderator") {
+                          resolve();
+                      }
+          '
+  module_ts_imports: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: '* as OT'
+            - java.lang.String: 
+              - ↑value: '@opentok/client'
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: '* as OTLayoutManager'
+            - java.lang.String: 
+              - ↑value: opentok-layout-js
+  package_dependencies: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: '@opentok/client'
+            - java.lang.String: 
+              - ↑value: 2.18.1
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: opentok-layout-js
+            - java.lang.String: 
+              - ↑value: 3.8.0
+  page_ts_imports: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: '* as OT'
+            - java.lang.String: 
+              - ↑value: '@opentok/client'
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: '* as OTLayoutManager'
+            - java.lang.String: 
+              - ↑value: opentok-layout-js
+  ↓apiKey [mobile.components.UIControlVariable-1620306742994]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:params.apiKey
+  ↓sessionId [mobile.components.UIControlVariable-1620306742997]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:params.sessionId
+  ↓token [mobile.components.UIControlVariable-1620306743000]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:params.token
+  ↓role [mobile.components.UIControlVariable-1620306743003]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:params.role
+  ↓width [mobile.components.UIControlVariable-1620306743006]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:params.width
+  ↓height [mobile.components.UIControlVariable-1620306743009]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:params.height
+  ↓targetElement [mobile.components.UIControlVariable-1620307231786]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:params.targetElement
+↓role [mobile.components.UIStackVariable-1620307147367]: 
+↓targetElement [mobile.components.UIStackVariable-1620307288388]: 
+↓sessionId [mobile.components.UIStackVariable-1620309297954]: 
+↓apiKey [mobile.components.UIStackVariable-1620309372539]: 
+↓token [mobile.components.UIStackVariable-1620309465470]: 
+↓width [mobile.components.UIStackVariable-1620311374567]: 
+↓height [mobile.components.UIStackVariable-1620311376751]: 
