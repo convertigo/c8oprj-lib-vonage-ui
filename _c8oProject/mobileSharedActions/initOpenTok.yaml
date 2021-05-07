@@ -58,9 +58,7 @@
               		if (vars.role == "subscriber") {
                   		session.on(''streamCreated'', function(event) {
                   		     session.subscribe(event.stream, el, {
-                  		       insertMode: ''append'',
-                  		       width: vars.width,
-                  		       height: vars.height
+                  		       insertMode: ''replace'',
                   		     }, handleError);
           					layoutEl.appendChild(el);
           					layout.layout();
@@ -80,9 +78,7 @@
               		
                       if (vars.role == "publisher") {
                   		const publisher = OT.initPublisher(el, {
-                  		        insertMode: ''append'',
-                  		        width: vars.width,
-                  		        height: vars.height,
+                  		        insertMode: ''replace'',
           						resolution: "1280x720"
                   		}, handleError)
                   		

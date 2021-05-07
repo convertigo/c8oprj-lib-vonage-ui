@@ -24,8 +24,8 @@
             		
             		div.style.zIndex = "10000000000";
             		div.style.position = "absolute";
-            		div.style.minWidth = "500px";
-            		div.style.minHeight = "500px";
+            		div.style.minWidth = vars.width;
+            		div.style.minHeight = vars.height;
             		let id = new Date().getTime() + "";
             		div.id = "Layout"+id;
             		
@@ -157,5 +157,15 @@
           - xmlizable: 
             - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
             - MobileSmartSourceType: source:{"filter":"Action","project":"lib_Vonage_ui","input":"","model":{"data":[{"priority":1620310846718},{"priority":1620307352727},{"priority":1620307381255},{"priority":1620307447978}],"path":"","prefix":"","suffix":"","custom":"stack['1620307381255']?.out.token","useCustom":true}}
+    ↓width [mobile.components.UIControlVariable-1620382039293]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:params.width
+    ↓height [mobile.components.UIControlVariable-1620382039296]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:params.height
 ↓width [mobile.components.UIStackVariable-1620311488779]: 
 ↓height [mobile.components.UIStackVariable-1620311511238]: 
