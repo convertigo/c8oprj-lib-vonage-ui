@@ -35,6 +35,7 @@
           			};
           			
           			const layoutEl = document.getElementById("Layout"+vars.targetElement);
+          			//@ts-ignore 
           			const layout = OTLayoutManager(layoutEl, optionsLayoutManager);
           			layout.layout();
           			var el = document.createElement("div");
