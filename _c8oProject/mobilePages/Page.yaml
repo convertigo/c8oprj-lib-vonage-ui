@@ -18,9 +18,14 @@ title: Title for Page
             varValue: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
-                - MobileSmartSourceType: plain:
+                - MobileSmartSourceType: plain:200px
           ↓height [mobile.components.UIControlVariable-1620311531443]: 
             varValue: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
-                - MobileSmartSourceType: plain:
+                - MobileSmartSourceType: plain:200px
+          ↓sessionName [mobile.components.UIControlVariable-1620635374988]: 
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+                - MobileSmartSourceType: script:'test'

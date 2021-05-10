@@ -59,6 +59,8 @@
                   		session.on(''streamCreated'', function(event) {
                   		     session.subscribe(event.stream, el, {
                   		       insertMode: ''replace'',
+          						width:vars.width,
+          						height: vars.height
                   		     }, handleError);
           					layoutEl.appendChild(el);
           					layout.layout();
@@ -79,7 +81,9 @@
                       if (vars.role == "publisher") {
                   		const publisher = OT.initPublisher(el, {
                   		        insertMode: ''replace'',
-          						resolution: "1280x720"
+          						resolution: "1280x720",
+          						width:vars.width,
+          						height: vars.height
                   		}, handleError)
                   		
                           // Connect to the session
@@ -178,12 +182,12 @@
     varValue: 
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
-        - MobileSmartSourceType: script:params.width
+        - MobileSmartSourceType: script:'100%'
   ↓height [mobile.components.UIControlVariable-1620306743009]: 
     varValue: 
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
-        - MobileSmartSourceType: script:params.height
+        - MobileSmartSourceType: script:'100%'
   ↓targetElement [mobile.components.UIControlVariable-1620307231786]: 
     varValue: 
       - xmlizable: 

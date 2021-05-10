@@ -5,7 +5,7 @@
     varValue: 
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
-        - MobileSmartSourceType: script:'name=Franck'
+        - MobileSmartSourceType: script:params.sessionName
   ↓role [mobile.components.UIControlVariable-1620307416319]: 
     varValue: 
       - xmlizable: 
@@ -76,8 +76,30 @@
             			        pos4 = e.clientY;
             				}
             		        // set the element''s new position:
-            		        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-            		        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            				var top;
+            				var left;
+            				var computedLeft = (elmnt.offsetLeft - pos1);
+            				var computedTop = (elmnt.offsetTop - pos2);
+            				if(computedTop < 0){
+            					top = 0
+            				}
+            				else if(computedTop > (document.body.clientHeight - parseInt(vars.height))){
+            					top = document.body.clientHeight - parseInt(vars.height)
+            				}
+            				else{
+            					top = computedTop;
+            				}
+            				if(computedLeft < 0){
+            					left = 0
+            				}
+            				else if(computedLeft > (document.body.clientWidth - parseInt(vars.width))){
+            					left = document.body.clientWidth - parseInt(vars.width)
+            				}
+            				else{
+            					left = computedLeft;
+            				}
+            		        elmnt.style.top = top + "px";
+            		        elmnt.style.left = left + "px";
             		    }
             		
             		    function closeDragElement() {
@@ -169,3 +191,4 @@
           - MobileSmartSourceType: script:params.height
 ↓width [mobile.components.UIStackVariable-1620311488779]: 
 ↓height [mobile.components.UIStackVariable-1620311511238]: 
+↓sessionName [mobile.components.UIStackVariable-1620402733301]: 

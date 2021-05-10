@@ -30,7 +30,7 @@ comment: session and token
           varValue: 
             - xmlizable: 
               - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
-              - MobileSmartSourceType: plain:name=Franck
+              - MobileSmartSourceType: plain:
         ↓expire [mobile.components.UIControlVariable-1620306698798]: 
           comment: new variable
           varValue: 
