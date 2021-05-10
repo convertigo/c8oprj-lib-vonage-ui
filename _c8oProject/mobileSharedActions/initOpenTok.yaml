@@ -37,9 +37,8 @@
           			const layoutEl = document.getElementById("ChildLayout"+vars.targetElement);
           			//@ts-ignore 
           			const layout = OTLayoutManager(layoutEl, optionsLayoutManager);
-          			layout.layout();
+          //			layout.layout();
           			var el = document.createElement("div");
-          			
           			     
               		function handleError(error) {
               		    if (error) {
@@ -50,21 +49,21 @@
               		var session = OT.initSession(vars.apiKey, vars.sessionId);
               		
               		if (vars.role == "subscriber") {
-          				
+          				el.style.position = "absolute";
+          				el.style.left = "0";
+          				el.style.top = "0";
+          				el.style.width = "100%";
+          				el.style.height = "100%";
+          				el.style.zIndex ="10";
                   		session.on(''streamCreated'', function(event) {
                   		     session.subscribe(event.stream, el, {
                   		       insertMode: ''replace'',
-          						width:vars.width,
-          						height: vars.height
+          						width: el.style.width,
+          						height: el.style.height
                   		     }, handleError);
-          					el.style.position = "absolute !important";
-          					el.style.left = "0 !important";
-          					el.style.top = "0 !important";
-          					el.style.width = "100% !important";
-          					el.style.height = "100% !important";
-          					el.style.zIndex ="10 !important";
+          					
           					layoutEl.appendChild(el);
-          					//layout.layout();
+          					// layout.layout();
           					
                                resolve();
                   		});
@@ -78,15 +77,23 @@
           					}
                               resolve();
                           });
+          
+          				
               		}
               		
                       if (vars.role == "publisher") {
-          				
+          
+          				el.style.position = "absolute";
+          				el.style.right = "0px";
+          				el.style.bottom = "0px";
+          				el.style.width = "20%";
+          				el.style.height = "20%";
+          				el.style.zIndex ="100";
                   		const publisher = OT.initPublisher(el, {
                   		        insertMode: ''replace'',
           						resolution: "1280x720",
-          						width:vars.width,
-          						height: vars.height
+          						width: el.style.width,
+          						height: el.style.height,
                   		}, handleError)
                   		
                           // Connect to the session
@@ -96,23 +103,20 @@
                                   handleError(error);
                               } else {
                                   session.publish(publisher, handleError);
-          el.style.position = "absolute !important";
-          				el.style.right = "10px !important";
-          				el.style.bottom = "10px !important";
-          				el.style.width = "20% !important";
-          				el.style.height = "20% !important";
-          				el.style.zIndex ="100 !important";
-          						layoutEl.appendChild(el);
-          						//layout.layout();
+          						layoutEl.appendChild(el);					
+          						// layout.layout();
           						
                               }
                               resolve();
                           });
+          
+          				
                       }
           
                       if (vars.role == "moderator") {
                           resolve();
                       }
+          
           '
   module_ts_imports: 
     - xmlizable: 
