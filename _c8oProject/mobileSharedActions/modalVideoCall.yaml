@@ -23,15 +23,25 @@
             		var body = document.getElementsByTagName("body")[0];
             		
             		
-            		div.style.zIndex = "10000000000";
+            		div.style.zIndex = vars.zIndex;
             		div.style.position = "absolute";
             		div.style.minWidth = ""+vars.width;
             		div.style.minHeight = ""+vars.height;
             		div.style.backgroundColor = "black";
             		let id = new Date().getTime() + "";
             		div.id = "firstLayout"+id;
+            		if(vars.parentId != undefined && vars.parentId != ''''){
+            			try{
+            				document.getElementById(vars.parentId).appendChild(div);
+            			}
+            			catch(e){
+            				body.appendChild(div)
+            			}
+            		}
+            		else{
+            			body.appendChild(div)
+            		}
             		
-            		body.appendChild(div)
             		dragElement(div);
             		var divRelative = document.createElement("div");
             		divRelative.style.position = "relative";
@@ -207,6 +217,19 @@
         - xmlizable: 
           - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
           - MobileSmartSourceType: script:params.height
+    ↓zIndex [mobile.components.UIControlVariable-1620740552980]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:params.zIndex
+    ↓parentId [mobile.components.UIControlVariable-1620741367323]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:params.parentId
 ↓width [mobile.components.UIStackVariable-1620311488779]: 
 ↓height [mobile.components.UIStackVariable-1620311511238]: 
 ↓sessionName [mobile.components.UIStackVariable-1620402733301]: 
+↓zIndex [mobile.components.UIStackVariable-1620740520268]: 
+  value: '''10000000000'''
+↓parentId [mobile.components.UIStackVariable-1620741413855]: 

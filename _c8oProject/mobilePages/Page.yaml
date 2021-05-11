@@ -9,40 +9,8 @@ scriptContent:
         /*Begin_c8o_PageDeclaration*/
         	/*End_c8o_PageDeclaration*/
         /*Begin_c8o_PageConstructor*/
-        		setTimeout(()=>{
-        			
-        		this.addmyButton();
-        			console.log("done");
-        		},5000)
         		/*End_c8o_PageConstructor*/
         /*Begin_c8o_PageFunction*/
-        	
-        	public addmyButton (){
-        				var button = document.getElementById("monID");
-        				/*var bt = document.createElement("button");
-        				bt.setAttribute("style", "width:38px;height:37px;");
-        				bt.setAttribute("class", "OT_edge-bar-item");
-        				bt.id = "size";
-        				//'<svg aria-hidden="true" viewBox="0 0 10 10"><path d="M7 9L5 8 3 9V6L1 4h3l1-3 1 3h3L7 6z"/></svg>'
-        				var svg = document.createElement("svg");
-        				//svg.setAttribute("aria-hidden", "true");
-        				svg.setAttribute("style", "width:38px;height:37px;");
-        				svg.setAttribute("width", "30px");
-        				svg.setAttribute("height", "30px");
-        				svg.setAttribute("viewBox", "0 0 30 30");
-        				svg.setAttribute("xmlns","http://www.w3.org/2000/svg");
-        				var path = document.createElement("path");
-        				path.setAttribute("d","M7 9L5 8 3 9V6L1 4h3l1-3 1 3h3L7 6z");
-        				svg.appendChild(path);
-        				bt.appendChild(svg);
-        						//bt.textContent = "Mute";
-        						
-        						button.appendChild(bt)*/
-        						button.innerHTML = `<button style="width:38px;height:37px;" class="OT_edge-bar-item" id="truc">
-        <svg xmlns="http://www.w3.org/2000/svg"  viewbox="0 0 10 10"><path d="M7 9L5 8 3 9V6L1 4h3l1-3 1 3h3L7 6z"></path></svg>
-        
-        </button>`
-        					}
         	/*End_c8o_PageFunction*/
         
 segment: path-to-page
