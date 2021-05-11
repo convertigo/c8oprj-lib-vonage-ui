@@ -20,14 +20,16 @@
             '		page.c8o.log.debug(''[MB] ''+ props.actionFunction +'': ''+ props.actionName);
             		
             		var div = document.createElement("div");
-            		var body = document.getElementsByTagName("body")[0]
+            		var body = document.getElementsByTagName("body")[0];
+            		
             		
             		div.style.zIndex = "10000000000";
             		div.style.position = "absolute";
             		div.style.minWidth = vars.width;
             		div.style.minHeight = vars.height;
+            		div.style.backgroundColor = "black";
             		let id = new Date().getTime() + "";
-            		div.id = "Layout"+id;
+            		div.id = "firstLayout"+id;
             		
             		body.appendChild(div)
             		dragElement(div);
@@ -37,7 +39,7 @@
             		divRelative.style.height = vars.height;
             		divRelative.style.marginLeft ="auto";
             		divRelative.style.marginRight ="auto";
-            		divRelative.id = "ChildLayout"+id;
+            		divRelative.id = "secondLayout"+id;
             		div.appendChild(divRelative)
             		/**
             		position: relative;
@@ -53,7 +55,7 @@
             		
             		    function dragMouseDown(e) {
             				e = e || window.event;
-            			    e.preventDefault();
+            			    //e.preventDefault();
             				if(e.type === "touchstart"){
             					pos3 = e.touches[0].clientX// - xOffset;
                     			pos4 = e.touches[0].clientY// - yOffset;
@@ -74,7 +76,7 @@
             		
             		    function elementDrag(e) {
             				e = e || window.event;
-            		        e.preventDefault();
+            		        //e.preventDefault();
             				if(e.type ==="touchmove"){
             					// calculate the new cursor position:
             			        pos1 = pos3 - e.touches[0].clientX;
