@@ -25,8 +25,8 @@
             		
             		div.style.zIndex = "10000000000";
             		div.style.position = "absolute";
-            		div.style.minWidth = vars.width;
-            		div.style.minHeight = vars.height;
+            		div.style.minWidth = ""+vars.width;
+            		div.style.minHeight = ""+vars.height;
             		div.style.backgroundColor = "black";
             		let id = new Date().getTime() + "";
             		div.id = "firstLayout"+id;
@@ -35,8 +35,8 @@
             		dragElement(div);
             		var divRelative = document.createElement("div");
             		divRelative.style.position = "relative";
-            		divRelative.style.width = vars.width;
-            		divRelative.style.height = vars.height;
+            		divRelative.style.width = ""+vars.width;
+            		divRelative.style.height = ""+vars.height;
             		divRelative.style.marginLeft ="auto";
             		divRelative.style.marginRight ="auto";
             		divRelative.id = "secondLayout"+id;
@@ -126,6 +126,8 @@
             				document.ontouchend = null;
             		    }
             		}
+            		
+            		page.local.c8oDragElementFunc = dragElement;
             		
             		resolve(id);
             '
