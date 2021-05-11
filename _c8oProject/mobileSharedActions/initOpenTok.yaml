@@ -8,6 +8,8 @@
                       page.c8o.log.debug(''[OpenTok] apiKey    : '' + vars.apiKey);
                       page.c8o.log.debug(''[OpenTok] sessionId : '' + vars.sessionId);
                       page.c8o.log.debug(''[OpenTok] role   : '' + vars.role);
+          
+          			
           			var publisher;
           			var subscriber;
           			var addmyButton = ()=>{
@@ -183,6 +185,7 @@
               		    }
               		}
               		var session = OT.initSession(vars.apiKey, vars.sessionId);
+          			page.local.session = session
               		
               		if (vars.role == "subscriber") {
           				
@@ -204,6 +207,7 @@
           				
                               resolve();
                   		});
+          
           				session.on(''streamDestroyed'', (event) => {
           				  event.preventDefault();
           				  session.getSubscribersForStream(event.stream).forEach((subscriber) => {

@@ -30,6 +30,7 @@
             		div.style.backgroundColor = "black";
             		let id = new Date().getTime() + "";
             		div.id = "firstLayout"+id;
+            		page.local.videoCallElement = div.id;
             		if(vars.parentId != undefined && vars.parentId != ''''){
             			try{
             				document.getElementById(vars.parentId).appendChild(div);
