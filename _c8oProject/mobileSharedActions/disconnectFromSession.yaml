@@ -4,22 +4,27 @@
       - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
       - com.twinsoft.convertigo.beans.common.FormatedContent: 
         →: |
+          		if(page.local.session != undefined){
+          			try {
+          				page.local.session.disconnect();
+          			} catch(e) {
+          				page.c8o.log.error("disconnectAndRemoveVideoCallElement", e)
+          			}
+          		}
           		try {
-          			page.local.session.disconnect();
+          			let elemToRemove = document.getElementById(page.local.videoCallElement);
+          			if(elemToRemove != null){
+          				document.getElementById(page.local.videoCallElement).remove();
+          			}
           		} catch(e) {
           			page.c8o.log.error("disconnectAndRemoveVideoCallElement", e)
           		}
-          		
-          		try {
-          			document.getElementById(page.local.videoCallElement).remove();
-          		} catch(e) {
-          			page.c8o.log.error("disconnectAndRemoveVideoCallElement", e)
-          		}
-          		
-          		try {
-          			page.local.session.off();
-          		} catch(e) {
-          			page.c8o.log.error("disconnectAndRemoveVideoCallElement", e)
+          		if(page.local.session != undefined){
+          			try {
+          				page.local.session.off();
+          			} catch(e) {
+          				page.c8o.log.error("disconnectAndRemoveVideoCallElement", e)
+          			}
           		}
           		
           		
